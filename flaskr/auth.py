@@ -1,3 +1,4 @@
+import sqlite3
 import functools
 
 from flask import (
@@ -29,8 +30,8 @@ def register():
                     "INSERT INTO user (username, password) VALUES (?, ?)",
                     (username, generate_password_hash(password)),
                 )
-                db.commit
-            except db.IntegrityError:
+                db.commit()
+            except sqlite3.IntegrityError:
                 error = f"User {username} is already registered"
             else:
                 return redirect(url_for("auth.login"))
@@ -88,4 +89,4 @@ def login_required(view):
         
         return view(**kwargs)
     
-    return wrapped_view()
+    return wrapped_view
