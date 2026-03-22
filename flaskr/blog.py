@@ -78,7 +78,7 @@ def update(id):
             db = get_db()
             db.execute(
                 'UPDATE post SET title = ?, body = ?'
-                ' WHERE id = ?'
+                ' WHERE id = ?',
                 (title, body, id)
             )
             db.commit()
